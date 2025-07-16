@@ -5,20 +5,20 @@
 - `autocmd` acts as a even listener which performs certain task when a certain type of event is triggered, in this case opening of a java file.
 
 
-## 🧩 Why Setting Up LSP for Java Is More Complicated than for C/C++
+## Why Setting Up LSP for Java Is More Complicated than for C/C++
 
 Here are **5 key reasons** why configuring the LSP for Java (`jdtls`) is more complex than for languages like C/C++ (`clangd`):
 
 ---
 
-### 1. 🧠 Per-Project Workspace Requirement
+### 1.Per-Project Workspace Requirement
 
 - `jdtls` requires a **unique workspace directory** (`-data`) per project to store metadata like indexes and preferences.
 - Other LSPs like `clangd` do **not** require this — they attach to the project root directly.
 
 ---
 
-### 2. ⚙️ Build Tool & Classpath Complexity
+### 2. Build Tool & Classpath Complexity
 
 - Java heavily depends on **classpath resolution** to locate dependencies and standard libraries.
 - Without `pom.xml`, `build.gradle`, or `.classpath`, Java LSP cannot resolve symbols.
@@ -26,7 +26,7 @@ Here are **5 key reasons** why configuring the LSP for Java (`jdtls`) is more co
 
 ---
 
-### 3. 🏗 Eclipse-Based Server with Many Moving Parts
+### 3. Eclipse-Based Server with Many Moving Parts
 
 - `jdtls` is based on the **Eclipse language server**, which requires:
   - A specific `launcher.jar` file
@@ -36,7 +36,7 @@ Here are **5 key reasons** why configuring the LSP for Java (`jdtls`) is more co
 
 ---
 
-### 4. 🔁 Cannot Use `lspconfig.setup()` Directly
+### 4. Cannot Use `lspconfig.setup()` Directly
 
 - `jdtls` must be launched using `require("jdtls").start_or_attach({ ... })` at runtime per project.
 - It **cannot** be declared statically with `lspconfig.jdtls.setup()` like other LSPs.
@@ -44,7 +44,7 @@ Here are **5 key reasons** why configuring the LSP for Java (`jdtls`) is more co
 
 ---
 
-### 5. 📦 Standard Library Isn’t Auto-Resolved
+### 5. Standard Library Isn’t Auto-Resolved
 
 - Java LSP needs proper detection of the JDK to resolve even core classes like `String` or `List`.
 - Without JDK setup and classpath, you lose go-to-definition and autocomplete for standard Java classes.
