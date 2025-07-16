@@ -2,16 +2,25 @@ return {
   { "mason-org/mason.nvim", opts = {} },
   {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    opts = {
+      automatic_enable = {
+        exclude = {
+          "jdtls",
+        },
+      },
+    },
     dependencies = {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig",
     },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "clangd", "jdtls" },
+        ensure_installed = { "lua_ls", "clangd" },
       })
     end,
+  },
+  {
+    "mfussenegger/nvim-jdtls",
   },
   {
     "neovim/nvim-lspconfig",
@@ -24,12 +33,16 @@ return {
       lspconfig.clangd.setup({
         capabilities = capabilities,
       })
-      lspconfig.jdtls.setup({
-        capabilities = capabilities,
-      })
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
       vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "java",
+        callback = function()
+          require("config.jdtls").start()
+        end,
+      })
 
       vim.diagnostic.config({
         virtual_text = true,
