@@ -26,5 +26,6 @@ require("lazy").setup("plugins")
 vim.opt.number = true
 
 vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 
 
