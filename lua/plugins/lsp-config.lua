@@ -110,5 +110,4 @@ return {
         severity_sort = true,
       })
     end,
-  },
-}
+},}
